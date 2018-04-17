@@ -1,0 +1,19 @@
+{
+	"name": "camagru",
+	"description": "The camagru Framework.",
+	"keywords": ["framework", "camagru"],
+	"license": "MIT",
+	"type": "project",
+
+	"authors": [
+		{
+			"name": "Ivan Bogonosiuk",
+			"email": "ibohonos@student.unit.ua"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Camagru\\": "app/"
+		}
+	}
+}
