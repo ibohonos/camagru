@@ -1,20 +1,15 @@
 <?php
-// namespace Camagru\Controllers;
 
-// use Camagru\Core;
-
-class HomeController extends Core
+class HomeController extends Controller
 {
-	function __construct(array $views = [])
+
+	public function index()
 	{
-		// echo "string3";
-		// print_r($views);
-		// $this->getHomePageData();
-		// parent::__construct($views);
+		View::generate("index.php");
 	}
 
-	// private function getHomePageData()
-	// {
-
-	// }
+	public function not_404()
+	{
+		View::generate("404.php");
+	}
 }

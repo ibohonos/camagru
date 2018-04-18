@@ -2,14 +2,15 @@
 
 class Core
 {
-	public static function ft_run()
+	public function ft_run()
 	{
 		self::ft_init();
 		self::ft_autoload();
 		self::ft_dispatch();
+		Route::start();
 	}
 
-	private static function ft_init()
+	private function ft_init()
 	{
 		define("DS", DIRECTORY_SEPARATOR);
 		define("ROOT", getcwd() . DS);
@@ -32,16 +33,18 @@ class Core
 		require CORE_PATH . "Controller.class.php";
 		require CORE_PATH . "Route.class.php";
 
-		$GLOBALS['config'] = include CONFIG_PATH . "config.php";
+		$GLOBALS['config'] = include CONFIG_PATH . "database.php";
 		session_start();
 	}
 
-	private static function ft_autoload()
+	private function ft_autoload()
 	{
-		spl_autoload_register(array(__CLASS__, 'ft_load'));
+		spl_autoload_register(function ($class) {
+			self::ft_load($class);
+		});
 	}
 
-	private static function ft_load($class)
+	private function ft_load($class)
 	{
 		if (substr($class, -10) == "Controller") :
 			require CONTROLLER_PATH . $class . ".php";
@@ -50,40 +53,9 @@ class Core
 		endif;
 	}
 
-	private static function ft_dispatch()
+	private function ft_dispatch()
 	{
-		$controller_name = CONTROLLER . "Controller";
-		$action_name = ACTION . "Action";
-		$controller = new $controller_name;
-		// $controller->$action_name();
+		$controller = new CONTROLLER;
+		$controller->ACTION;
 	}
-
-
-
-	// protected $data;
-	// private $content;
-
-	// public function __construct(array $views)
-	// {
-	// 	$this->loadView($views);
-	// }
-
-	// protected function getData(): array {
-	// 	return $this->data;
-	// }
-
-	// protected function loadView(array $views) {
-	// 	ob_start();
-	// 	$data = $this->getData();
-	// 	foreach ($views as $view) {
-	// 		include $view;
-	// 	}
-	// 	$content = ob_get_contents();
-	// 	ob_end_clean();
-	// 	$this->content = $content;
-	// }
-
-	// public function out() : string {
-	// 	return $this->content;
-	// }
 }

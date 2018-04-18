@@ -4,7 +4,7 @@ class Route
 {
 	public static function start()
 	{
-		$controller_name = 'HomeController';
+		$controller_name = 'Home';
 		$action_name = 'index';
 
 		$routes = explode('/', $_SERVER['REQUEST_URI']);
@@ -22,19 +22,23 @@ class Route
 		// добавляем префиксы
 		$model_name = $controller_name . "Model";
 		$controller_name = $controller_name . "Controller";
-		$action_name = $action_name . "Action";
+//		$action_name = $action_name . "Action";
+
+		if ($controller_name === "404Controller") :
+			$controller_name = "HomeController";
+			$action_name = "not_404";
+		endif;
 
 		// подцепляем файл с классом модели (файла модели может и не быть)
-
-		$model_file = strtolower($model_name).'.php';
-		$model_path = MODEL_PATH . $model_name . ".php";
+		$model_file = ucfirst($model_name).'.php';
+		$model_path = MODEL_PATH . $model_file;
 		if(file_exists($model_path)) :
 			include $model_path;
 		endif;
 
 		// подцепляем файл с классом контроллера
-		// $controller_file = strtolower($controller_name).'.php';
-		$controller_path = CONTROLLER_PATH . $controller_file . ".php";
+		$controller_file = ucfirst($controller_name).'.php';
+		$controller_path = CONTROLLER_PATH . $controller_file;
 		if(file_exists($controller_path)) :
 			include $controller_path;
 		else :
@@ -47,11 +51,11 @@ class Route
 		if(method_exists($controller, $action)) :
 			$controller->$action();
 		else :
-			Route::ErrorPage404();
+			self::ErrorPage404();
 		endif;
 	}
 
-	function ErrorPage404()
+	public static function ErrorPage404()
 	{
 		$host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
 		header('HTTP/1.1 404 Not Found');

@@ -15,6 +15,7 @@
 <body>
 	<div class="container">
 		<h1>Camagru</h1>
+		<?php include VIEW_PATH . $content_view; ?>
 	</div>
 </body>
 </html>
