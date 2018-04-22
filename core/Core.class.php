@@ -6,7 +6,6 @@ class Core
 	{
 		self::ft_init();
 		self::ft_autoload();
-		self::ft_dispatch();
 		Route::start();
 	}
 
@@ -22,19 +21,19 @@ class Core
 		define("MODEL_PATH", APP_PATH . "models" . DS);
 		define("VIEW_PATH", APP_PATH . "views" . DS);
 		define("UPLOAD_PATH", PUBLIC_PATH . "uploads" . DS);
-		// define("PLATFORM", isset($_REQUEST['p']) ? $_REQUEST['p'] : 'home');
-		define("CONTROLLER", isset($_REQUEST['c']) ? $_REQUEST['c'] : 'Home');
-		define("ACTION", isset($_REQUEST['a']) ? $_REQUEST['a'] : 'index');
-		// define("CURR_CONTROLLER_PATH", CONTROLLER_PATH . PLATFORM . DS);
-		// define("CURR_VIEW_PATH", VIEW_PATH . PLATFORM . DS);
 
 		require CORE_PATH . "Model.class.php";
 		require CORE_PATH . "View.class.php";
 		require CORE_PATH . "Controller.class.php";
 		require CORE_PATH . "Route.class.php";
+		include CONFIG_PATH . "setup.php";
 
-		$GLOBALS['config'] = include CONFIG_PATH . "database.php";
 		session_start();
+
+		$GLOBALS['pdo'] = $pdo;
+		if (isset($_SESSION['auth_user']) && !empty($_SESSION['auth_user'])) :
+			$GLOBALS['auth'] = $_SESSION['auth_user'];
+		endif;
 	}
 
 	private function ft_autoload()
@@ -51,11 +50,5 @@ class Core
 		elseif (substr($class, -5) == "Model") :
 			require MODEL_PATH . $class . ".php";
 		endif;
-	}
-
-	private function ft_dispatch()
-	{
-		$controller = new CONTROLLER;
-		$controller->ACTION;
 	}
 }

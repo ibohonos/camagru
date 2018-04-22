@@ -2,12 +2,23 @@
 
 class Route
 {
-	public static function start()
+	public function start()
 	{
 		$controller_name = 'Home';
 		$action_name = 'index';
 
 		$routes = explode('/', $_SERVER['REQUEST_URI']);
+
+		$method = $_SERVER['REQUEST_METHOD'];
+
+
+		if ($method == 'POST') {
+			if ($_POST) {
+				$post = $_POST;
+			} else {
+				$post = $_FILES;
+			}
+		}
 
 		// получаем имя контроллера
 		if (!empty($routes[1])) :
@@ -49,13 +60,17 @@ class Route
 		$action = $action_name;
 		
 		if(method_exists($controller, $action)) :
-			$controller->$action();
+			if ($post) :
+				$controller->$action($post);
+			else :
+				$controller->$action();
+			endif;
 		else :
 			self::ErrorPage404();
 		endif;
 	}
 
-	public static function ErrorPage404()
+	public function ErrorPage404()
 	{
 		$host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
 		header('HTTP/1.1 404 Not Found');

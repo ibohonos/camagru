@@ -1,0 +1,78 @@
+body {
+}
+
+.container {
+	width: 100%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+@media (min-width: 576px) {
+	.container {
+		max-width: 540px;
+	}
+}
+
+@media (min-width: 768px) {
+	.container {
+		max-width: 720px;
+	}
+}
+
+@media (min-width: 992px) {
+	.container {
+		max-width: 960px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.container {
+		max-width: 1140px;
+	}
+}
+
+.title {
+	text-align: center;
+}
+
+.pull-right {
+	float: right;
+}
+
+.page_header {
+	background: #f09433;
+	background: linear-gradient(to right, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+	background: -o-linear-gradient(to right, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+	background: -ms-linear-gradient(to right, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+	background: -moz-linear-gradient(to right, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+	background: -webkit-linear-gradient(to right, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.page_header .pure-menu-link {
+	color: #fff;
+}
+
+.page_header .pure-menu-active > .pure-menu-link,
+.page_header .pure-menu-link:hover,
+.page_header .pure-menu-link:focus {
+	background: linear-gradient(to right, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+canvas#canvas {
+	display: none;
+}
+
+.gallery {
+	width: 750px;
+	margin: 0 auto;
+}
+
+.gallery .image {
+	padding: 15px;
+}
+
+.gallery .image img {
+	width: 100%;
+}

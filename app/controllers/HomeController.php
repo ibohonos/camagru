@@ -5,7 +5,9 @@ class HomeController extends Controller
 
 	public function index()
 	{
-		View::generate("index.php");
+		$home = new HomeModel;
+		$data = $home->get_data();
+		View::generate("index.php", $data);
 	}
 
 	public function not_404()

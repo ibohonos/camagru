@@ -13,4 +13,10 @@ class Controller
 	public function index()
 	{
 	}
+
+	public function redirect($url, $msg = "")
+	{
+		header('Location: ' . $url);
+		return $msg;
+	}
 }
