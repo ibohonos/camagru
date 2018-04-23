@@ -11,6 +11,8 @@ class Core
 
 	private function ft_init()
 	{
+		session_start();
+
 		define("DS", DIRECTORY_SEPARATOR);
 		define("ROOT", getcwd() . DS);
 		define("APP_PATH", ROOT . 'app' . DS);
@@ -22,15 +24,12 @@ class Core
 		define("VIEW_PATH", APP_PATH . "views" . DS);
 		define("UPLOAD_PATH", PUBLIC_PATH . "uploads" . DS);
 
+		require CORE_PATH . "Database.class.php";
 		require CORE_PATH . "Model.class.php";
 		require CORE_PATH . "View.class.php";
 		require CORE_PATH . "Controller.class.php";
 		require CORE_PATH . "Route.class.php";
-		include CONFIG_PATH . "setup.php";
 
-		session_start();
-
-		$GLOBALS['pdo'] = $pdo;
 		if (isset($_SESSION['auth_user']) && !empty($_SESSION['auth_user'])) :
 			$GLOBALS['auth'] = $_SESSION['auth_user'];
 		endif;
