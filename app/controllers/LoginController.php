@@ -4,15 +4,23 @@ class LoginController extends Controller
 {
 	public function index()
 	{
+		global $auth;
+
+		if ($auth)
+			$this->redirect("/");
 		View::generate("login.php");
 	}
 
 	public function auth($req)
 	{
+		global $auth;
+
+		if ($auth)
+			$this->redirect("/");
 		if (!empty($req['password']) && !empty($req['email'])) :
 			$user = new UsersModel;
-			$pass = hash("whirlpool", trim($req['password']));
-			$res = $user->getByEmail(trim($req['email']));
+			$pass = hash("whirlpool", trim(htmlspecialchars($req['password'])));
+			$res = $user->getByEmail(trim(htmlspecialchars($req['email'])));
 			if ($res) :
 				if ($pass === $res[0]['pass']) :
 					if ($res[0]['active']) :

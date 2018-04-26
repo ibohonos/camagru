@@ -1,7 +1,7 @@
 <header class="page_header">
 	<div class="container">
 		<div class="pure-menu pure-menu-horizontal">
-			<a href="/" class="pure-menu-heading pure-menu-link">Camagru</a>
+			<a href="/" class="pure-menu-heading pure-menu-link"><img src="/public/img/logo.png" height="64"></a>
 			<ul class="pure-menu-list">
 				<li class="pure-menu-item">
 					<a href="/" class="pure-menu-link">Home</a>

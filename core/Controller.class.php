@@ -10,15 +10,11 @@ class Controller
 		$this->view = new View();
 	}
 
-	public function index()
-	{
-	}
-
 	public function save_img($req, $auth, $path, $i = "")
 	{
 		$target_dir = UPLOAD_PATH . $path . DS;
 		if ($i != "") :
-			$img_name = time() . "-" . $auth['first_name'] . "-" . $auth['last_name'] . "-" . $i - 1 . "." . strtolower(pathinfo($req["name"][$i - 1],PATHINFO_EXTENSION));
+			$img_name = time() . "-" . $auth['first_name'] . "-" . $auth['last_name'] . "-" . ($i - 1) . "." . strtolower(pathinfo($req["name"][$i - 1],PATHINFO_EXTENSION));
 		else :
 			$img_name = time() . "-" . $auth['first_name'] . "-" . $auth['last_name'] . "." . strtolower(pathinfo($req["name"],PATHINFO_EXTENSION));
 		endif;
@@ -61,7 +57,6 @@ class Controller
 				}
 			endif;
 		}
-
 		$img_url = "/public/uploads/" . $path . "/" . $img_name;
 
 		return $img_url;

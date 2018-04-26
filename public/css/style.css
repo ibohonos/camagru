@@ -37,11 +37,15 @@ body {
 	text-align: center;
 }
 
+.pure-g {
+	letter-spacing: normal;
+}
+
 .pull-right {
 	float: right;
 }
 
-.page_header {
+.page_header, footer {
 	background: #f09433;
 	background: linear-gradient(to right, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
 	background: -o-linear-gradient(to right, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
@@ -52,12 +56,44 @@ body {
 
 .page_header .pure-menu-link {
 	color: #fff;
+	height: 64px;
+	line-height: 64px;
 }
 
 .page_header .pure-menu-active > .pure-menu-link,
 .page_header .pure-menu-link:hover,
 .page_header .pure-menu-link:focus {
 	background: linear-gradient(to right, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.sidebar .login {
+	text-align: center;
+}
+
+.sidebar .login input {
+	margin: 0.25em auto;
+}
+
+.likes {
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+}
+
+.likes.like {
+	background: url(/public/img/like.png) no-repeat center center;
+}
+
+.likes.like:hover {
+	background: url(/public/img/dislike.png) no-repeat center center;
+}
+
+.likes.dislike {
+	background: url(/public/img/dislike.png) no-repeat center center;
+}
+
+.likes.dislike:hover {
+	background: url(/public/img/like.png) no-repeat center center;
 }
 
 canvas#canvas {
@@ -75,4 +111,14 @@ canvas#canvas {
 
 .gallery .image img {
 	width: 100%;
+}
+
+footer {
+	margin-top: 25px;
+	padding: 1px 0;
+	color: #fff;
+}
+
+footer p {
+	text-align: center;
 }

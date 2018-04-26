@@ -46,14 +46,8 @@
 		canvas.width = width;
 		canvas.height = height;
 		canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-		// function convertCanvasToImage(canvas) {
-		// 	var image = new Image();
-		// 	image.src = canvas.toDataURL("image/png");
-		// 	return image;
-		// }
-		// var data = convertCanvasToImage(canvas);
-		// photo = data;
-		var data = canvas.toDataURL("image/png");
+
+		var data = canvas.toDataURL("image/jpg");
 		photo.setAttribute('src', data);
 	}
 

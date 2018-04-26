@@ -6,7 +6,12 @@ class HomeController extends Controller
 	public function index()
 	{
 		$home = new HomeModel;
-		$data = $home->get_data();
+		$user = new UsersModel;
+		$comments = new CommentsModel;
+
+		$data['gallery'] = $home->get_data();
+		$data['comments'] = $comments->get_data();
+		$data['users'] = $user;
 		View::generate("index.php", $data);
 	}
 

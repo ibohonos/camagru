@@ -24,12 +24,16 @@ class Core
 		define("VIEW_PATH", APP_PATH . "views" . DS);
 		define("UPLOAD_PATH", PUBLIC_PATH . "uploads" . DS);
 
+		include CONFIG_PATH . "app.php";
+
 		require CORE_PATH . "Database.class.php";
 		require CORE_PATH . "Model.class.php";
 		require CORE_PATH . "View.class.php";
 		require CORE_PATH . "Controller.class.php";
 		require CORE_PATH . "Route.class.php";
+		require CORE_PATH . "Mail.class.php";
 
+		$GLOBALS['config'] = $config;
 		if (isset($_SESSION['auth_user']) && !empty($_SESSION['auth_user'])) :
 			$GLOBALS['auth'] = $_SESSION['auth_user'];
 		endif;

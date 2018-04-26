@@ -2,11 +2,9 @@
 
 class ProfileModel extends Model
 {
-	public function get_data()
+	public function get_data($id)
 	{
-		global $auth;
-
-		$sql = "SELECT * FROM albums WHERE user_id='" . $auth['id'] . "'";
+		$sql = "SELECT * FROM albums WHERE user_id='" . $id . "'";
 		$data = $this->pdo->select($sql);
 
 		return $data;

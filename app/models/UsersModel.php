@@ -12,7 +12,7 @@ class UsersModel extends Model
 
 	public function save($user)
 	{
-		$sql = "INSERT INTO users (first_name, last_name, email, pass, active) VALUES('$user->first_name', '$user->last_name', '$user->email', '$user->pass', '0')";
+		$sql = "INSERT INTO users (first_name, last_name, email, pass, token, active) VALUES('$user->first_name', '$user->last_name', '$user->email', '$user->pass', '$user->token', '0')";
 		$this->pdo->insert($sql);
 	}
 
@@ -38,5 +38,11 @@ class UsersModel extends Model
 		$this->pdo->update($sql);
 		$user = $this->getById($ava->user_id);
 		$_SESSION['auth_user'] = $user[0];
+	}
+
+	public function activate($email)
+	{
+		$sql = "UPDATE users SET token='NULL', active='1' WHERE email='$email'";
+		$this->pdo->update($sql);
 	}
 }

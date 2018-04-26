@@ -7,10 +7,10 @@ class Route
 		$controller_name = 'Home';
 		$action_name = 'index';
 
-		$routes = explode('/', $_SERVER['REQUEST_URI']);
+		$gets = explode("?", $_SERVER['REQUEST_URI']);
+		$routes = explode('/', $gets[0]);
 
 		$method = $_SERVER['REQUEST_METHOD'];
-
 
 		if ($method == 'POST') {
 			if ($_POST) {
@@ -28,6 +28,13 @@ class Route
 		// получаем имя экшена
 		if (!empty($routes[2])) :
 			$action_name = $routes[2];
+		endif;
+
+		// получаем get запрос
+		if (!empty($routes[3])) :
+			$get_req = $routes[3];
+		elseif (!empty($gets[1])) :
+			$get_req = $gets[1];
 		endif;
 
 		// добавляем префиксы
@@ -62,6 +69,8 @@ class Route
 		if(method_exists($controller, $action)) :
 			if ($post) :
 				$controller->$action($post);
+			elseif ($get_req) :
+				$controller->$action($get_req);
 			else :
 				$controller->$action();
 			endif;
@@ -70,7 +79,7 @@ class Route
 		endif;
 	}
 
-	public function ErrorPage404()
+	public static function ErrorPage404()
 	{
 		$host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
 		header('HTTP/1.1 404 Not Found');

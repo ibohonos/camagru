@@ -5,8 +5,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Camagru</title>
+	<link rel='shortcut icon' type='image/png' href='/public/img/favicon.png' />
 	<link rel="stylesheet" href="/public/css/pure.css">
 	<link rel="stylesheet" href="/public/css/style.css">
+	<script src="/public/js/ajax.js"></script>
 </head>
 <body>
 	<?php include_once VIEW_PATH . "blocks" . DS . "header.php" ?>
@@ -21,5 +23,6 @@
 		</div>
 	</div>
 	<?php include_once VIEW_PATH . "blocks" . DS . "footer.php" ?>
+	<script src="/public/js/scripts.js"></script>
 </body>
 </html>
