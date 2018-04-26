@@ -14,7 +14,7 @@ class ProfileController extends Controller
 
 		$data['gallery'] = $profile->get_data($auth['id']);
 		$data['comments'] = $comments->get_data();
-		$data['user'] = $user;
+		$data['users'] = $user;
 		View::generate("profile.php", $data);
 	}
 
@@ -68,16 +68,26 @@ class ProfileController extends Controller
 		endif;
 	}
 
-	public function saveComment($req)
+	public function saveComment()
 	{
 		global $auth;
 
+		$req = $_POST;
+
 		$comment = new CommentsModel;
+		$user = new UsersModel;
 
 		$comment->user_id = $auth['id'];
 		$comment->album_id = $req['img_id'];
 		$comment->text = nl2br(htmlspecialchars($req['comment']));
 		$comment->save($comment);
-		$this->redirect($_SERVER['HTTP_REFERER']);
+		$user = $user->getById($comment->user_id);
+		$user = $user[0];
+		?>
+			<p>
+				<a href="/user?id=<?php echo $user['id']; ?>"><?php echo $user['first_name'] . " " . $user['last_name']; ?></a><br>
+				<?php echo $comment->text; ?>
+			</p>
+		<?php
 	}
 }

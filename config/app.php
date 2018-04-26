@@ -5,8 +5,8 @@ $config = [
 	/*
 	 * Mail settings
 	 */
-	"from_name" => "Ivan Bohonosiuk",
-	"from_mail" => "ibohonos@student.unit.ua",
+	"from_name" => "Camagru",
+	"from_mail" => "no-replay@camagru.ua",
 
 
 ];

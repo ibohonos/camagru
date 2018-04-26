@@ -4,7 +4,7 @@ class ProfileModel extends Model
 {
 	public function get_data($id)
 	{
-		$sql = "SELECT * FROM albums WHERE user_id='" . $id . "'";
+		$sql = "SELECT * FROM albums WHERE user_id='" . $id . "' ORDER BY id DESC";
 		$data = $this->pdo->select($sql);
 
 		return $data;

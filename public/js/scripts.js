@@ -1,27 +1,45 @@
 function save_comment(f) {
 	var data = "comment=" + f.comment.value + "&img_id=" + f.img_id.value;
-	console.log(data);
-
-
 	var phttp = new XMLHttpRequest();
+
 	phttp.open("POST", "/profile/saveComment/", true);
 	phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	phttp.send(data);
-	// 4. Если код ответа сервера не 200, то это ошибка
-	if (phttp.status != 200) {
-		// обработать ошибку
-		alert( phttp.status + ': ' + phttp.statusText ); // пример вывода: 404: Not Found
-	} else {
-		// вывести результат
-		alert( phttp.responseText ); // responseText -- текст ответа.
-	}
 	phttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			console.log(this);
+			var test = this.responseText;
+			var comments = document.getElementById('comments' + f.img_id.value);
+			var div = document.createElement('div');
+
+			div.classList.add("pure-u-1");
+			div.classList.add("comment");
+			div.innerHTML = test;
+			comments.appendChild(div);
+			f.comment.value = "";
 		}
-
 	};
+}
 
-	// console.log(res);
-	// console.log(f.img_id.value);
+function likes(img_id, user_id, type)
+{
+	var data = "user_id=" + user_id + "&img_id=" + img_id + "&type=" + type;
+	var phttp = new XMLHttpRequest();
+
+	phttp.open("POST", "/home/likes/", true);
+	phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	phttp.send(data);
+	phttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var test = this.responseText;
+			console.log(test);
+	// 		var comments = document.getElementById('comments' + f.img_id.value);
+	// 		var div = document.createElement('div');
+
+	// 		div.classList.add("pure-u-1");
+	// 		div.classList.add("comment");
+	// 		div.innerHTML = test;
+	// 		comments.appendChild(div);
+	// 		f.comment.value = "";
+		}
+	};
 }

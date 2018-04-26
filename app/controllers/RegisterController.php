@@ -28,7 +28,7 @@ class RegisterController extends Controller
 					$user->token = hash("whirlpool", $user->email);
 					$user->save($user);
 
-					$mail_message = "Thank's for registration.\n\nPlease activate Your account for <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['SERVER_NAME'] . "/profile/active/token=" . $user->token . "&email=" . $user->email . "'>this link</a>.\n";
+					$mail_message = "Thank's for registration.\n\nPlease activate Your account for <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/profile/active/token=" . $user->token . "&email=" . $user->email . "'>this link</a>.\n";
 
 					Mail::send($user->email, "Registration", $mail_message);
 
