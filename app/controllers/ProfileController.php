@@ -93,19 +93,32 @@ class ProfileController extends Controller
 		$req = $_POST;
 
 		$comment = new CommentsModel;
-		$user = new UsersModel;
+		$users = new UsersModel;
+		$imgs = new ProfileModel;
 
 		$comment->user_id = $auth['id'];
 		$comment->album_id = $req['img_id'];
 		$comment->text = nl2br(htmlspecialchars($req['comment']));
 		$comment->save($comment);
-		$user = $user->getById($comment->user_id);
+		// $comment->id = $comment->pdo->lastInsertId();
+		$user = $users->getById($comment->user_id);
 		$user = $user[0];
+		$img = $imgs->getById($comment->album_id);
+		$img = $img[0];
+		$mail_user = $users->getById($img['user_id']);
+		$mail_user = $mail_user[0];
+		$mail_message = "User leave a comment for you image.\n\ncomment: " . $comment->text . "\nUser: <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/user?id=" . $user['id'] . "'>" . $user['first_name'] . " " . $user['last_name'] . "</a>\n";
+		var_dump($mail_message);
+		return;
+		Mail::send($mail_user['email'], "Comment", $mail_message);
 		?>
-			<p>
-				<a href="/user?id=<?php echo $user['id']; ?>"><?php echo $user['first_name'] . " " . $user['last_name']; ?></a><br>
-				<?php echo $comment->text; ?>
-			</p>
+			<a href="/user?id=<?php echo $user['id']; ?>"><?php echo $user['first_name'] . " " . $user['last_name']; ?></a><br>
+			<p><?php echo $comment->text; ?></p>
+			<div class="content_likes">
+				<div class="likes like" id="likes<?php echo $comment->id; ?>" onclick="likes(<?php echo $comment['id']; ?>, <?php echo $auth['id']; ?>, 'comment')"></div>
+				<span class="count_l" id="count_l<?php echo $comment->id; ?>">0</span>
+				<div class="clearfix"></div>
+			</div>
 		<?php
 	}
 }

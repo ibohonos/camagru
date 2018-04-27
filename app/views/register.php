@@ -33,9 +33,9 @@
 		</div>
 
 		<div class="pure-controls">
-			<button type="submit" class="pure-button pure-button-primary">Register</button>
+			<button type="submit" class="pure-button button-secondary">Register</button>
 			<span>OR</span>
-			<a class="pure-button button-success" href="/login/">Login</a>
+			<a class="pure-button button-warning" href="/login/">Login</a>
 		</div>
 	</fieldset>
 </form>
