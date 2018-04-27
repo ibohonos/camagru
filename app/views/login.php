@@ -1,5 +1,6 @@
 <h1 class="title">Login</h1>
-<form class="pure-form pure-form-aligned" action="/login/auth" method="post">
+<form class="pure-form pure-form-aligned" method="post" onsubmit="login(this);return false;">
+	<div class="error"></div>
 	<fieldset>
 		<div class="pure-control-group">
 			<label for="email">Email Address</label>
@@ -14,7 +15,11 @@
 		</div>
 
 		<div class="pure-controls">
-			<button type="submit" class="pure-button pure-button-primary">Login</button>
+			<button type="submit" class="pure-button button-secondary">Login</button>
+			<br>
+			<br>
+			<a class="pure-button button-warning" href="#">Reset password</a>
+			<a class="pure-button button-success" href="/register/">Register</a>
 		</div>
 	</fieldset>
 </form>

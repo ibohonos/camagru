@@ -1,13 +1,23 @@
 <div class="pure-g comments" id="comments<?php echo $val['id']; ?>">
 	<?php foreach ($data['comments'] as $comment) : ?>
 		<?php if ($comment['album_id'] === $val['id']) : ?>
+			<?php
+				if ($auth && LikesModel::liked($auth['id'], $comment['id'], 'comment')) :
+					$like = "dislike";
+				else :
+					$like = "like";
+				endif;
+			?>
 			<?php $user = $data['users']->getById($comment['user_id']); ?>
 			<?php $user = $user[0]; ?>
 			<div class="pure-u-1 comment">
-				<p>
-					<a href="/user?id=<?php echo $user['id']; ?>"><?php echo $user['first_name'] . " " . $user['last_name']; ?></a><br>
-					<?php echo $comment['text']; ?>
-				</p>
+				<a href="/user?id=<?php echo $user['id']; ?>"><?php echo $user['first_name'] . " " . $user['last_name']; ?></a>
+				<p><?php echo $comment['text']; ?></p>
+				<div class="content_likes">
+					<div class="likes <?php echo $like; ?>" id="likes<?php echo $comment['id']; ?>" onclick="likes(<?php echo $comment['id']; ?>, <?php echo $auth['id']; ?>, 'comment')"></div>
+					<span class="count_l" id="count_l<?php echo $comment['id']; ?>"><?php echo LikesModel::count_likes($comment['id'], 'comment'); ?></span>
+					<div class="clearfix"></div>
+				</div>
 			</div>
 		<?php endif; ?>
 	<?php endforeach; ?>

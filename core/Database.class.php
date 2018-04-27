@@ -51,4 +51,19 @@ class Database
 			exit(-1);
 		}
 	}
+
+	public function delete($sql)
+	{
+		include CONFIG_PATH . "database.php";
+
+		try {
+			$pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			$pdo->exec($sql);
+		} catch (PDOException $e) {
+			echo "UPDATE ERROR: " . $e->getMessage();
+			exit(-1);
+		}
+	}
 }

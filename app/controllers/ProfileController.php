@@ -18,6 +18,24 @@ class ProfileController extends Controller
 		View::generate("profile.php", $data);
 	}
 
+	public function upload()
+	{
+		global $auth;
+
+		if (!$auth)
+			$this->redirect("/login/");
+		View::generate("upload_images.php");
+	}
+
+	public function make()
+	{
+		global $auth;
+
+		if (!$auth)
+			$this->redirect("/login/");
+		View::generate("make_images.php");
+	}
+
 	public function save_image($req)
 	{
 		global $auth;

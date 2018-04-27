@@ -27,7 +27,25 @@ class HomeController extends Controller
 		$likes = new LikesModel;
 
 		$like = $likes->getByIds($req['user_id'], $req['img_id'], $req['type']);
-
-		var_dump($like);
+		$likes->user_id = $req['user_id'];
+		$likes->post_id = $req['img_id'];
+		$likes->type = $req['type'];
+		if (empty($like)) :
+			$likes->like($likes);
+			$like = $likes->getByIds($req['user_id'], $req['img_id'], $req['type']);
+			if (empty($like)) :
+				echo "error";
+			else :
+				echo "liked";
+			endif;
+		else :
+			$likes->dislike($likes);
+			$like = $likes->getByIds($req['user_id'], $req['img_id'], $req['type']);
+			if (!empty($like)) :
+				echo "error";
+			else :
+				echo "disliked";
+			endif;
+		endif;
 	}
 }

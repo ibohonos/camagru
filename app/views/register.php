@@ -1,5 +1,6 @@
 <h1 class="title">Registration</h1>
-<form class="pure-form pure-form-aligned" action="/register/save" method="post">
+<form class="pure-form pure-form-aligned" onsubmit="register(this);return false;" method="post">
+	<div class="error"></div>
 	<fieldset>
 		<div class="pure-control-group">
 			<label for="first_name">First name</label>
@@ -32,7 +33,9 @@
 		</div>
 
 		<div class="pure-controls">
-			<button type="submit" class="pure-button pure-button-primary">Submit</button>
+			<button type="submit" class="pure-button pure-button-primary">Register</button>
+			<span>OR</span>
+			<a class="pure-button button-success" href="/login/">Login</a>
 		</div>
 	</fieldset>
 </form>

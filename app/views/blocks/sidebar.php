@@ -7,22 +7,25 @@
 			<?php endif; ?>
 			<p>Hello <?php echo $auth['first_name'] . " " . $auth['last_name']; ?></p>
 		<?php else : ?>
-			<form class="pure-form pure-form-stacked" action="/login/auth" method="post">
+			<form class="pure-form pure-form-stacked" onsubmit="login(this);return false;" method="post">
+				<div class="error"></div>
 				<fieldset>
 					<div class="pure-control-group">
-						<label for="email">Email Address</label>
-						<input id="email" type="email" name="email" placeholder="Email Address" required>
-<!--						<span class="pure-form-message-inline">This is a required field.</span>-->
+						<label for="auth_email">Email Address</label>
+						<input id="auth_email" type="email" name="email" placeholder="Email Address" required>
 					</div>
 
 					<div class="pure-control-group">
-						<label for="password">Password</label>
-						<input id="password" name="password" type="password" placeholder="Password" required>
-<!--						<span class="pure-form-message-inline">This is a required field.</span>-->
+						<label for="auth_password">Password</label>
+						<input id="auth_password" name="password" type="password" placeholder="Password" required>
 					</div>
 
 					<div class="pure-controls">
-						<button type="submit" class="pure-button pure-button-primary">Login</button>
+						<button type="submit" class="pure-button button-secondary">Login</button>
+						<br>
+						<br>
+						<a class="pure-button button-warning" href="#">Reset password</a>
+						<a class="pure-button button-success" href="/register/">Register</a>
 					</div>
 				</fieldset>
 			</form>

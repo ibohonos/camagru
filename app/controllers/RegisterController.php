@@ -11,12 +11,10 @@ class RegisterController extends Controller
 		View::generate("register.php");
 	}
 
-	public function save($req)
+	public function save()
 	{
-		global $auth;
+		$req = $_POST;
 
-		if ($auth)
-			$this->redirect("/");
 		if (!empty($req['first_name']) && !empty($req['last_name']) && !empty($req['password']) && !empty($req['email'])) :
 			if ($req['password'] == $req['conf_password']) :
 				$user = new UsersModel;
@@ -32,16 +30,16 @@ class RegisterController extends Controller
 
 					Mail::send($user->email, "Registration", $mail_message);
 
-					$msg = $this->redirect("/login/", "Success.");
+					$msg = "Success";
 				else :
-					$msg = $this->redirect($_SERVER['HTTP_REFERER'], "Wrong E-mail");
+					$msg = "E-mail is already busy";
 				endif;
 			else :
-				$msg = $this->redirect($_SERVER['HTTP_REFERER'], "Wrong password");
+				$msg = "Password not matches";
 			endif;
 		else :
-			$msg = $this->redirect($_SERVER['HTTP_REFERER'], "Empty fields");
+			$msg = "Empty fields";
 		endif;
-		return $msg;
+		echo $msg;
 	}
 }

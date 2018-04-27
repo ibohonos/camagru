@@ -11,12 +11,13 @@ class LoginController extends Controller
 		View::generate("login.php");
 	}
 
-	public function auth($req)
+	public function auth()
 	{
 		global $auth;
+		$req = $_POST;
 
 		if ($auth)
-			$this->redirect("/");
+			echo "loginned";
 		if (!empty($req['password']) && !empty($req['email'])) :
 			$user = new UsersModel;
 			$pass = hash("whirlpool", trim(htmlspecialchars($req['password'])));
@@ -25,18 +26,18 @@ class LoginController extends Controller
 				if ($pass === $res[0]['pass']) :
 					if ($res[0]['active']) :
 						$_SESSION['auth_user'] = $res[0];
-						$this->redirect("/");
+						echo "Success";
 					else :
-						$this->redirect($_SERVER['HTTP_REFERER']);
+						echo "Please activate your account.";
 					endif;
 				else :
-					$this->redirect($_SERVER['HTTP_REFERER']);
+					echo "Password not matches.";
 				endif;
 			else :
-				$this->redirect($_SERVER['HTTP_REFERER']);
+				echo "Wrong e-mail.";
 			endif;
 		else :
-			$this->redirect($_SERVER['HTTP_REFERER']);
+			echo "Please enter all fields.";
 		endif;
 	}
 

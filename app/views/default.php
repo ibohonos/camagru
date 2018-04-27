@@ -8,7 +8,6 @@
 	<link rel='shortcut icon' type='image/png' href='/public/img/favicon.png' />
 	<link rel="stylesheet" href="/public/css/pure.css">
 	<link rel="stylesheet" href="/public/css/style.css">
-	<script src="/public/js/ajax.js"></script>
 </head>
 <body>
 	<?php include_once VIEW_PATH . "blocks" . DS . "header.php" ?>
