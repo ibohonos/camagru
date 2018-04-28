@@ -45,4 +45,6 @@ class UsersModel extends Model
 		$sql = "UPDATE users SET token=NULL, active='1' WHERE email='$email'";
 		$this->pdo->update($sql);
 	}
+
+
 }

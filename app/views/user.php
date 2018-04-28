@@ -8,3 +8,4 @@
 		</div>
 	<?php endforeach; ?>
 </div>
+<?php include VIEW_PATH . "blocks" . DS . "pagination.php"; ?>

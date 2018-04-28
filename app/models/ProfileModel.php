@@ -23,4 +23,20 @@ class ProfileModel extends Model
 
 		return $data;
 	}
+
+	public function count_all($id)
+	{
+		$sql = "SELECT COUNT(*) AS `count` FROM albums WHERE user_id='" . $id . "'";
+		$data = $this->pdo->select($sql);
+
+		return $data;
+	}
+
+	public function get_limit_data($id, $start, $num)
+	{
+		$sql = "SELECT * FROM albums WHERE user_id='" . $id . "' ORDER BY id DESC LIMIT $start, $num";
+		$data = $this->pdo->select($sql);
+
+		return $data;
+	}
 }

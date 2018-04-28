@@ -215,6 +215,29 @@ canvas#canvas {
 	right: 0;
 }
 
+.pagination {
+	text-align: center;
+}
+
+.pagination span {
+	color: #555;
+	border: 1px solid #555;
+	border-radius: 5px;
+	padding: 5px 10px
+}
+
+.pagination a {
+	color: #e6683c;
+	text-decoration: none;
+	border: 1px solid #555;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+
+.pagination a:hover {
+	color: #bc1888;
+}
+
 footer {
 	margin-top: 25px;
 	padding: 1px 0;

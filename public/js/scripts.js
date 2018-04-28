@@ -51,8 +51,8 @@ function likes(img_id, user_id, type)
 function login(f) {
 	var data = "email=" + f.email.value + "&password=" + f.password.value;
 	var error = document.getElementsByClassName("error");
-	var error = error[0];
 	var phttp = new XMLHttpRequest();
+	error = error[0];
 
 	phttp.open("POST", "/login/auth/", true);
 	phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -72,8 +72,8 @@ function login(f) {
 function register(f) {
 	var data = "first_name=" + f.first_name.value + "&last_name=" + f.last_name.value + "&email=" + f.email.value + "&password=" + f.password.value + "&conf_password=" + f.conf_password.value;
 	var error = document.getElementsByClassName("error");
-	var error = error[0];
 	var phttp = new XMLHttpRequest();
+	error = error[0];
 
 	phttp.open("POST", "/register/save/", true);
 	phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -84,6 +84,27 @@ function register(f) {
 			if (test === "Success") {
 				window.location.href = '/login/';
 			} else if (test === "loginned") {
+				window.location.href = '/';
+			} else {
+				error.innerHTML = test;
+			}
+		}
+	};
+}
+
+function reset_pass(f) {
+	var data = "email=" + f.email.value;
+	var error = document.getElementsByClassName("error");
+	var phttp = new XMLHttpRequest();
+	error = error[0];
+
+	phttp.open("POST", "/user/reset_pass/", true);
+	phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	phttp.send(data);
+	phttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var test = this.responseText;
+			if (test === "Success" || test === "loginned") {
 				window.location.href = '/';
 			} else {
 				error.innerHTML = test;

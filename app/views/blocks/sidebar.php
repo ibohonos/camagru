@@ -24,7 +24,7 @@
 						<button type="submit" class="pure-button button-secondary">Login</button>
 						<br>
 						<br>
-						<a class="pure-button button-warning" href="#">Reset password</a>
+						<a class="pure-button button-warning" href="/user/reset/">Reset password</a>
 						<a class="pure-button button-success" href="/register/">Register</a>
 					</div>
 				</fieldset>

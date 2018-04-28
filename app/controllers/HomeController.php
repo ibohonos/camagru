@@ -8,10 +8,22 @@ class HomeController extends Controller
 		$home = new HomeModel;
 		$user = new UsersModel;
 		$comments = new CommentsModel;
+		$numbers = 5;
+		$page = isset($_GET['page']) ? $_GET['page'] : 1;
+		$start = $page * $numbers - $numbers;
 
-		$data['gallery'] = $home->get_data();
+		$data['gallery'] = $home->get_limit_data($start, $numbers);
 		$data['comments'] = $comments->get_data();
 		$data['users'] = $user;
+		$count = $home->count_all();
+		$count = $count[0]['count'];
+
+		$data['pages'] = new Pagination([
+			'itemsCount' => $count,
+			'itemsPerPage' => $numbers,
+			'currentPage' => $page
+		]);
+
 		View::generate("index.php", $data);
 	}
 

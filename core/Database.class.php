@@ -31,6 +31,7 @@ class Database
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 			$pdo->exec($sql);
+			return $pdo->lastInsertId();
 		} catch (PDOException $e) {
 			echo "INSERT ERROR: " . $e->getMessage();
 			exit(-1);
@@ -62,7 +63,7 @@ class Database
 
 			$pdo->exec($sql);
 		} catch (PDOException $e) {
-			echo "UPDATE ERROR: " . $e->getMessage();
+			echo "DELETE ERROR: " . $e->getMessage();
 			exit(-1);
 		}
 	}

@@ -26,6 +26,8 @@ class Core
 
 		include CONFIG_PATH . "app.php";
 
+		require CORE_PATH . "Button.class.php";
+		require CORE_PATH . "Pagination.class.php";
 		require CORE_PATH . "Database.class.php";
 		require CORE_PATH . "Model.class.php";
 		require CORE_PATH . "View.class.php";
