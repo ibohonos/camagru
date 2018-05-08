@@ -9,7 +9,6 @@ class ProfileController extends Controller
 		if (!$auth)
 			$this->redirect("/login/");
 		$profile = new ProfileModel;
-		$comments = new CommentsModel;
 		$user = new UsersModel;
 
 		$numbers = 5;
@@ -19,7 +18,7 @@ class ProfileController extends Controller
 		$count = $count[0]['count'];
 
 		$data['gallery'] = $profile->get_limit_data($auth['id'], $start, $numbers);
-		$data['comments'] = $comments->get_data();
+		$data['comments'] = new CommentsModel;
 		$data['users'] = $user;
 
 		$data['pages'] = new Pagination([

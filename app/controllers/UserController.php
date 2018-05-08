@@ -6,7 +6,6 @@ class UserController extends Controller
 	{
 		$user = new UsersModel;
 		$gall = new ProfileModel;
-		$comments = new CommentsModel;
 
 		$arr = explode("=", $req);
 		$numbers = 5;
@@ -18,7 +17,7 @@ class UserController extends Controller
 		$data['user'] = $user->getById($arr[1]);
 		$data['user'] = $data['user'][0];
 		$data['gallery'] = $gall->get_limit_data($arr[1], $start, $numbers);
-		$data['comments'] = $comments->get_data();
+		$data['comments'] = new CommentsModel;
 		$data['users'] = $user;
 
 		$data['pages'] = new Pagination([
@@ -36,7 +35,12 @@ class UserController extends Controller
 
 	public function reset()
 	{
-		View::generate("reset_pass.php");
+		global $auth;
+
+		if ($auth)
+			$this->redirect("/profile/");
+		else
+			View::generate("reset_pass.php");
 	}
 
 	public function reset_pass()
@@ -51,8 +55,51 @@ class UserController extends Controller
 			return;
 		endif;
 		$res = $res[0];
-		$mail_message = "Thank's for registration.\n\nPlease activate Your account for <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/profile/active/token=" . $user->token . "&email=" . $user->email . "'>this link</a>.\n";
+		if ($res['token'] != NULL) :
+			$token = $res['token'];
+		else :
+			$token = hash("whirlpool", time());
+			$user->update_token($res['id'], $token);
+		endif;
+			$mail_message = "Reset pass.\n\nPlease follow to <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/user/reset_password/token=" . $token . "&email=" . $res['email'] . "'>this link</a>.\n";
+		Mail::send($res['email'], "Reset password", $mail_message);
+		echo "Success";
+	}
 
-		Mail::send($user->email, "Registration", $mail_message);
+	public function reset_password($req)
+	{
+		$arr = explode("&", $req);
+		$token = explode("=", $arr[0]);
+		$email = explode("=", $arr[1]);
+		$user = new UsersModel;
+
+		$res = $user->getByEmail($email[1]);
+		if ($token[1] === $res[0]['token']) :
+			$this->redirect("/user/new_password/email=" . $res[0]['email']);
+		else :
+			$this->redirect("/user/reset/");
+		endif;
+	}
+
+	public function new_password($req)
+	{
+		$email = explode("=", $req);
+		$data['email'] = $email[1];
+		View::generate("new_pass.php", $data);
+	}
+
+	public function new_pass()
+	{
+		$req = $_POST;
+		$user = new UsersModel;
+
+		if ($req['pass'] === $req['conf_pass']) :
+			$pass = hash("whirlpool", $req['pass']);
+			$user->update_pass($req['email'], $pass);
+			$user->activate($req['email']);
+			echo "Success";
+		else :
+			echo "Passwords not math.";
+		endif;
 	}
 }

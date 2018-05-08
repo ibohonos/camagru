@@ -13,6 +13,15 @@ body,
 	font-family: "SegoePrint", sans-serif;
 }
 
+a {
+	color: #e6683c;
+	text-decoration: none;
+}
+
+a:hover, a:active {
+	color: #bc1888;
+}
+
 .clearfix {
 	clear: both;
 }
@@ -23,6 +32,11 @@ body,
 	padding-left: 15px;
 	margin-right: auto;
 	margin-left: auto;
+}
+
+.avatar {
+	width: 48px;
+	border-radius: 50%;
 }
 
 @media (min-width: 576px) {
@@ -177,8 +191,13 @@ canvas#canvas {
 	margin: 0 auto;
 }
 
+.gallery .name {
+	padding: 5px 15px 0;
+}
+
 .gallery .image {
 	padding: 15px;
+	position: relative;
 }
 
 .gallery .image img {
@@ -238,6 +257,39 @@ canvas#canvas {
 	color: #bc1888;
 }
 
+.all_comments {
+	display: block;
+	margin: 10px auto;
+}
+
+.gallery .user_link .avatar {
+	width: 32px;
+}
+
+.user_link span {
+	line-height: 32px;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.del_comment {
+	position: absolute;
+	margin-top: 0 !important;
+	padding: 5px;
+	top: 0;
+	right: 0;
+}
+
+.title_ava {
+	width: 128px;
+	display: block;
+	margin: 10px auto 0;
+}
+
+.del_img {
+	padding: 20px;
+}
+
 footer {
 	margin-top: 25px;
 	padding: 1px 0;
@@ -246,4 +298,12 @@ footer {
 
 footer p {
 	text-align: center;
+}
+
+footer a {
+	color: #ff0;
+}
+
+footer a:hover {
+	color: #fff;
 }

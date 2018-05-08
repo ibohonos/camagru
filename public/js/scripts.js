@@ -104,10 +104,79 @@ function reset_pass(f) {
 	phttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var test = this.responseText;
-			if (test === "Success" || test === "loginned") {
+			if (test === "Success") {
 				window.location.href = '/';
 			} else {
 				error.innerHTML = test;
+			}
+		}
+	};
+}
+
+function save_pass(f) {
+	var data = "email=" + f.email.value + "&pass=" + f.password.value + "&conf_pass=" + f.conf_password.value;
+	var error = document.getElementsByClassName("error");
+	var phttp = new XMLHttpRequest();
+	error = error[0];
+
+	phttp.open("POST", "/user/new_pass/", true);
+	phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	phttp.send(data);
+	phttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var test = this.responseText;
+			if (test === "Success") {
+				window.location.href = '/login/';
+			} else {
+				error.innerHTML = test;
+			}
+		}
+	};
+}
+
+function all_comments(id) {
+	var data = "id=" + id;
+	var comments = document.getElementById("comments" + id);
+	var phttp = new XMLHttpRequest();
+
+	phttp.open("POST", "/home/all_comments/", true);
+	phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	phttp.send(data);
+	phttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			comments.innerHTML = this.responseText;
+		}
+	};
+}
+
+function delete_comment(comment_id, post_id) {
+	var data = "comment_id=" + comment_id + "&post_id=" + post_id;
+	var comments = document.getElementById("comments" + post_id);
+	var phttp = new XMLHttpRequest();
+
+	phttp.open("POST", "/home/delete_comment/", true);
+	phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	phttp.send(data);
+	phttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			comments.innerHTML = this.responseText;
+		}
+	};
+}
+
+function delete_img(id) {
+	var data = "id=" + id;
+	var image = document.getElementById("image" + id);
+	var phttp = new XMLHttpRequest();
+
+	phttp.open("POST", "/home/delete_img/", true);
+	phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	phttp.send(data);
+	phttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			console.log(this.responseText);
+			if (this.responseText === "Success") {
+				image.innerHTML = "";
 			}
 		}
 	};

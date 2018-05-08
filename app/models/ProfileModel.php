@@ -39,4 +39,10 @@ class ProfileModel extends Model
 
 		return $data;
 	}
+
+	public function delete($id)
+	{
+		$sql = "DELETE FROM albums WHERE id=" . $id;
+		$this->pdo->delete($sql);
+	}
 }

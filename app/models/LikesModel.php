@@ -49,4 +49,10 @@ class LikesModel extends Model
 		$like = $pdo->select($sql);
 		return count($like);
 	}
+
+	public function delete($post_id, $type)
+	{
+		$sql = "DELETE FROM likes WHERE post_id = " . $post_id . " AND type = '" . $type . "'";
+		$this->pdo->delete($sql);
+	}
 }

@@ -40,6 +40,18 @@ class UsersModel extends Model
 		$_SESSION['auth_user'] = $user[0];
 	}
 
+	public function update_token($id, $token)
+	{
+		$sql = "UPDATE users SET token='$token' WHERE id='$id'";
+		$this->pdo->update($sql);
+	}
+
+	public function update_pass($email, $pass)
+	{
+		$sql = "UPDATE users SET pass='$pass' WHERE email='$email'";
+		$this->pdo->update($sql);
+	}
+
 	public function activate($email)
 	{
 		$sql = "UPDATE users SET token=NULL, active='1' WHERE email='$email'";
