@@ -15,6 +15,9 @@
 			<ul class="pure-menu-list pull-right">
 				<?php if (isset($auth) && !empty($auth)) : ?>
 					<li class="pure-menu-item">
+						<a href="/profile/edit/" class="pure-menu-link">Edit</a>
+					</li>
+					<li class="pure-menu-item">
 						<a href="/login/logout/" class="pure-menu-link">Logout</a>
 					</li>
 				<?php else : ?>

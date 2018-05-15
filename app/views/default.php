@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Camagru</title>
+	<title><?php echo $data['title']; ?> - Camagru</title>
 	<link rel='shortcut icon' type='image/png' href='/public/img/favicon.png' />
 	<link rel="stylesheet" href="/public/css/pure.css">
 	<link rel="stylesheet" href="/public/css/style.css">

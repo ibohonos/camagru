@@ -1,21 +1,52 @@
 function save_comment(f) {
-	var data = "comment=" + f.comment.value + "&img_id=" + f.img_id.value;
-	var phttp = new XMLHttpRequest();
+	if (f.comment.value != "") {
+		var data = "comment=" + f.comment.value + "&img_id=" + f.img_id.value;
+		var phttp = new XMLHttpRequest();
 
-	phttp.open("POST", "/profile/saveComment/", true);
+		phttp.open("POST", "/profile/saveComment/", true);
+		phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		phttp.send(data);
+		phttp.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				var test = this.responseText;
+				var comments = document.getElementById('comments' + f.img_id.value);
+				var div = document.createElement('div');
+
+				div.classList.add("pure-u-1");
+				div.classList.add("comment");
+				div.innerHTML = test;
+				comments.appendChild(div);
+				f.comment.value = "";
+			}
+		};
+	}
+}
+
+function edit_profile(f) {
+	var check;
+	if (f.notify.checked) {
+		check = 1;
+	} else {
+		check = 0;
+	}
+	var data = "first_name=" + f.first_name.value + "&last_name=" + f.last_name.value + "&email=" + f.email.value + "&password=" + f.password.value + "&conf_password=" + f.conf_password.value + "&notify=" + check + "&user_id=" + f.user_id.value;
+	var error = document.getElementsByClassName("error");
+	var phttp = new XMLHttpRequest();
+	error = error[0];
+
+	phttp.open("POST", "/profile/save_profile/", true);
 	phttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	phttp.send(data);
 	phttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var test = this.responseText;
-			var comments = document.getElementById('comments' + f.img_id.value);
-			var div = document.createElement('div');
-
-			div.classList.add("pure-u-1");
-			div.classList.add("comment");
-			div.innerHTML = test;
-			comments.appendChild(div);
-			f.comment.value = "";
+			if (test === "notloginned") {
+				window.location.href = '/login/';
+			} else if (test === "Success") {
+				window.location.href = '/profile/';
+			} else {
+				error.innerHTML = test;
+			}
 		}
 	};
 }

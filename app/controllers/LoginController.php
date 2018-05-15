@@ -8,7 +8,9 @@ class LoginController extends Controller
 
 		if ($auth)
 			$this->redirect("/");
-		View::generate("login.php");
+		$data['title'] = "Login";
+
+		View::generate("login.php", $data);
 	}
 
 	public function auth()
@@ -16,8 +18,10 @@ class LoginController extends Controller
 		global $auth;
 		$req = $_POST;
 
-		if ($auth)
+		if ($auth) :
 			echo "loginned";
+			return;
+		endif;
 		if (!empty($req['password']) && !empty($req['email'])) :
 			$user = new UsersModel;
 			$pass = hash("whirlpool", trim(htmlspecialchars($req['password'])));

@@ -14,6 +14,7 @@ class HomeController extends Controller
 		$data['gallery'] = $home->get_limit_data($start, $numbers);
 		$data['comments'] = new CommentsModel;
 		$data['users'] = $user;
+		$data['title'] = "Index";
 		$count = $home->count_all();
 		$count = $count[0]['count'];
 
@@ -28,12 +29,14 @@ class HomeController extends Controller
 
 	public function not_404()
 	{
-		View::generate("404.php");
+		$data['title'] = "404";
+
+		View::generate("404.php", $data);
 	}
 
-	public function likes()
+	public function likes($req)
 	{
-		$req = $_POST;
+//		$req = $_POST;
 
 		$likes = new LikesModel;
 

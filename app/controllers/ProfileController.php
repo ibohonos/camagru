@@ -20,6 +20,7 @@ class ProfileController extends Controller
 		$data['gallery'] = $profile->get_limit_data($auth['id'], $start, $numbers);
 		$data['comments'] = new CommentsModel;
 		$data['users'] = $user;
+		$data['title'] = $auth['first_name'] . " " . $auth['last_name'];
 
 		$data['pages'] = new Pagination([
 			'itemsCount' => $count,
@@ -36,7 +37,9 @@ class ProfileController extends Controller
 
 		if (!$auth)
 			$this->redirect("/login/");
-		View::generate("upload_images.php");
+		$data['title'] = "Upload images";
+
+		View::generate("upload_images.php", $data);
 	}
 
 	public function make()
@@ -45,7 +48,56 @@ class ProfileController extends Controller
 
 		if (!$auth)
 			$this->redirect("/login/");
-		View::generate("make_images.php");
+		$data['title'] = "Make images";
+
+		View::generate("make_images.php", $data);
+	}
+
+	public function edit()
+	{
+		global $auth;
+
+		if (!$auth)
+			$this->redirect("/login/");
+		$data['title'] = "Edit profile";
+
+		View::generate("edit_profile.php", $data);
+	}
+
+	public function save_profile($req)
+	{
+		global $auth;
+
+		if (!$auth) :
+			echo "notloginned";
+			return;
+		endif;
+		$profile = new UsersModel;
+
+		$profile->user_id = $req['user_id'];
+		if (!empty($req['first_name']))
+			$profile->first_name = trim(htmlspecialchars($req['first_name']));
+		if (!empty($req['last_name']))
+			$profile->last_name = trim(htmlspecialchars($req['last_name']));
+		if (!empty($req['email']))
+			$profile->email = trim(htmlspecialchars($req['email']));
+		if (!empty($req['password'])) :
+			if (count($req['password']) < 6) :
+				if ($req['password'] === $req['conf_password']) :
+					$profile->pass = hash("whirlpool", trim(htmlspecialchars($req['password'])));
+				else :
+					echo "Fail! Password not match!";
+					return;
+				endif;
+			else :
+				echo "Password too short. Minimum 6 charset.";
+				return;
+			endif;
+		endif;
+		$profile->notify = $req['notify'];
+		$profile->save_edit($profile);
+		$_SESSION['auth_user'] = $profile->getById($req['user_id'])[0];
+		echo "Success";
 	}
 
 	public function save_image($req)
@@ -98,11 +150,11 @@ class ProfileController extends Controller
 		endif;
 	}
 
-	public function saveComment()
+	public function saveComment($req)
 	{
 		global $auth;
 
-		$req = $_POST;
+//		$req = $_POST;
 
 		$comment = new CommentsModel;
 		$users = new UsersModel;
@@ -110,6 +162,7 @@ class ProfileController extends Controller
 
 		$comment->user_id = $auth['id'];
 		$comment->album_id = $req['img_id'];
+		$req['comment'] = str_replace("'", "\"", $req['comment']);
 		$comment->text = nl2br(htmlspecialchars($req['comment']));
 		$id = $comment->save($comment);
 		$user = $users->getById($comment->user_id);
@@ -118,8 +171,10 @@ class ProfileController extends Controller
 		$img = $img[0];
 		$mail_user = $users->getById($img['user_id']);
 		$mail_user = $mail_user[0];
-		$mail_message = "User leave a comment for you image.\n\ncomment: " . $comment->text . "\nUser: <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/user?id=" . $user['id'] . "'>" . $user['first_name'] . " " . $user['last_name'] . "</a>\n";
-		Mail::send($mail_user['email'], "Comment", $mail_message);
+		if ($mail_user['notify']) :
+			$mail_message = "User leave a comment for you image.\n\ncomment: " . $comment->text . "\nUser: <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/user?id=" . $user['id'] . "'>" . $user['first_name'] . " " . $user['last_name'] . "</a>\n";
+			Mail::send($mail_user['email'], "Comment", $mail_message);
+		endif;
 		?>
 			<a href="/user?id=<?php echo $user['id']; ?>"><?php echo $user['first_name'] . " " . $user['last_name']; ?></a>
 			<p><?php echo $comment->text; ?></p>
@@ -128,6 +183,7 @@ class ProfileController extends Controller
 				<span class="count_l" id="count_l<?php echo $id; ?>">0</span>
 				<div class="clearfix"></div>
 			</div>
+			<a href="#" onclick="delete_comment(<?php echo $id; ?>, <?php echo $comment->album_id; ?>); return false;" class="del_comment">X</a>
 		<?php
 	}
 }

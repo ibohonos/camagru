@@ -19,6 +19,7 @@ class UserController extends Controller
 		$data['gallery'] = $gall->get_limit_data($arr[1], $start, $numbers);
 		$data['comments'] = new CommentsModel;
 		$data['users'] = $user;
+		$data['title'] = $data['user']['first_name'] . " " . $data['user']['last_name'];
 
 		$data['pages'] = new Pagination([
 			'itemsCount' => $count,
@@ -37,15 +38,16 @@ class UserController extends Controller
 	{
 		global $auth;
 
+		$data['title'] = "Reset password";
 		if ($auth)
 			$this->redirect("/profile/");
 		else
-			View::generate("reset_pass.php");
+			View::generate("reset_pass.php", $data);
 	}
 
-	public function reset_pass()
+	public function reset_pass($req)
 	{
-		$req = $_POST;
+//		$req = $_POST;
 
 		$user = new UsersModel;
 
@@ -85,12 +87,13 @@ class UserController extends Controller
 	{
 		$email = explode("=", $req);
 		$data['email'] = $email[1];
+		$data['title'] = "New password";
 		View::generate("new_pass.php", $data);
 	}
 
-	public function new_pass()
+	public function new_pass($req)
 	{
-		$req = $_POST;
+//		$req = $_POST;
 		$user = new UsersModel;
 
 		if ($req['pass'] === $req['conf_pass']) :

@@ -12,7 +12,7 @@ class Pagination
 			return;
 		}
 		$pagesCount = ceil($itemsCount / $itemsPerPage);
-		if ($pagesCount == 1) {
+		if ($pagesCount <= 1) {
 			return;
 		}
 		if ($currentPage > $pagesCount) {

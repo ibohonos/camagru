@@ -58,5 +58,19 @@ class UsersModel extends Model
 		$this->pdo->update($sql);
 	}
 
+	public function save_edit($profile)
+	{
+		$set = "notify='" . $profile->notify . "'";
+		if (!empty($profile->first_name))
+			$set .= ", first_name='" . $profile->first_name . "'";
+		if (!empty($profile->last_name))
+			$set .= ", last_name='" . $profile->last_name . "'";
+		if (!empty($profile->email))
+			$set .= ", email='" . $profile->email . "'";
+		if (!empty($profile->pass))
+			$set .= ", pass='" . $profile->pass . "'";
+		$sql = "UPDATE users SET " . $set . " WHERE id='$profile->user_id'";
+		$this->pdo->update($sql);
+	}
 
 }
