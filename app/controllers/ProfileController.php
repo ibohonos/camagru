@@ -186,4 +186,42 @@ class ProfileController extends Controller
 			<a href="#" onclick="delete_comment(<?php echo $id; ?>, <?php echo $comment->album_id; ?>); return false;" class="del_comment">X</a>
 		<?php
 	}
+
+	public function make_photo($req)
+	{
+		$overlayPath = $req['overlay'];
+		$photo = preg_replace("/^.+base64,/", "", $req['photo']);
+		$photo = str_replace(' ','+',$photo);
+		$photo = base64_decode($photo); 
+		$gd_photo = imagecreatefromstring($photo);
+		$gd_filter = imagecreatefrompng($overlayPath);
+		imagecopy($gd_photo, $gd_filter, 0, 0, 0, 0, imagesx($gd_filter), imagesy($gd_filter));
+		ob_start();
+			imagepng($gd_photo);
+			$image_data = ob_get_contents();
+		ob_end_clean();
+		echo "data:image/png;base64," . base64_encode($image_data);
+	}
+
+	public function save_photo($req)
+	{
+		global $auth;
+
+		if (!$auth) :
+			echo "notloginned";
+			return;
+		endif;
+		$profile = new ProfileModel;
+
+		$patch = "public/uploads/gallery/" . time() . "-" . $auth['first_name'] . "-" . $auth['last_name'] . ".png";
+		// $photo = preg_replace("/^.+base64,/", "", $req['pic']);
+		$photo = str_replace('data:image/png;base64,', '', $req['pic']);
+		$photo = str_replace(' ', '+', $photo);
+		$data = base64_decode($photo);
+		file_put_contents(ROOT . str_replace("/", DS, $patch), $data);
+		$profile->user_id = $req['id_user'];
+		$profile->img = "/" . $patch;
+		$profile->save($profile);
+		echo "Success";
+	}
 }
