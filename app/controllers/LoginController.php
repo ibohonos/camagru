@@ -13,10 +13,9 @@ class LoginController extends Controller
 		View::generate("login.php", $data);
 	}
 
-	public function auth()
+	public function auth($req)
 	{
 		global $auth;
-		$req = $_POST;
 
 		if ($auth) :
 			echo "loginned";

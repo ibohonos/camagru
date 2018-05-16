@@ -15,7 +15,6 @@ class RegisterController extends Controller
 
 	public function save($req)
 	{
-//		$req = $_POST;
 		global $auth;
 
 		if ($auth) :
@@ -23,7 +22,7 @@ class RegisterController extends Controller
 			return;
 		endif;
 		if (!empty($req['first_name']) && !empty($req['last_name']) && !empty($req['password']) && !empty($req['email'])) :
-			if (count($req['password']) < 6) :
+			if (count($req['password']) >= 6) :
 				if ($req['password'] == $req['conf_password']) :
 					$user = new UsersModel;
 					if (!$user->getByEmail(trim(htmlspecialchars($req['email'])))) :

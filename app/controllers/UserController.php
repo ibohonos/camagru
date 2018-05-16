@@ -47,8 +47,6 @@ class UserController extends Controller
 
 	public function reset_pass($req)
 	{
-//		$req = $_POST;
-
 		$user = new UsersModel;
 
 		$res = $user->getByEmail($req['email']);
@@ -93,16 +91,19 @@ class UserController extends Controller
 
 	public function new_pass($req)
 	{
-//		$req = $_POST;
 		$user = new UsersModel;
 
-		if ($req['pass'] === $req['conf_pass']) :
-			$pass = hash("whirlpool", $req['pass']);
-			$user->update_pass($req['email'], $pass);
-			$user->activate($req['email']);
-			echo "Success";
+		if (count($req['password']) >= 6) :
+			if ($req['pass'] === $req['conf_pass']) :
+				$pass = hash("whirlpool", $req['pass']);
+				$user->update_pass($req['email'], $pass);
+				$user->activate($req['email']);
+				echo "Success";
+			else :
+				echo "Passwords not math.";
+			endif;
 		else :
-			echo "Passwords not math.";
+			$msg = "Password too short. Minimum 6 charset.";
 		endif;
 	}
 }

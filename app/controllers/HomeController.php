@@ -36,8 +36,6 @@ class HomeController extends Controller
 
 	public function likes($req)
 	{
-//		$req = $_POST;
-
 		$likes = new LikesModel;
 
 		$like = $likes->getByIds($req['user_id'], $req['img_id'], $req['type']);

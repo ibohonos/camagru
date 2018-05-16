@@ -82,7 +82,7 @@ class ProfileController extends Controller
 		if (!empty($req['email']))
 			$profile->email = trim(htmlspecialchars($req['email']));
 		if (!empty($req['password'])) :
-			if (count($req['password']) < 6) :
+			if (count($req['password']) >= 6) :
 				if ($req['password'] === $req['conf_password']) :
 					$profile->pass = hash("whirlpool", trim(htmlspecialchars($req['password'])));
 				else :
@@ -154,8 +154,6 @@ class ProfileController extends Controller
 	{
 		global $auth;
 
-//		$req = $_POST;
-
 		$comment = new CommentsModel;
 		$users = new UsersModel;
 		$imgs = new ProfileModel;
@@ -214,7 +212,6 @@ class ProfileController extends Controller
 		$profile = new ProfileModel;
 
 		$patch = "public/uploads/gallery/" . time() . "-" . $auth['first_name'] . "-" . $auth['last_name'] . ".png";
-		// $photo = preg_replace("/^.+base64,/", "", $req['pic']);
 		$photo = str_replace('data:image/png;base64,', '', $req['pic']);
 		$photo = str_replace(' ', '+', $photo);
 		$data = base64_decode($photo);
