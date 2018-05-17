@@ -1,5 +1,5 @@
 <div class="sidebar">
-	<div class="login">
+	<div class="login d-none d-md-block">
 		<h2 class="title">Auth</h2>
 		<?php if ($auth) : ?>
 			<?php if ($auth['avatar']) : ?>

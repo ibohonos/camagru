@@ -1,9 +1,9 @@
 <h1 class="title">Camagru</h1>
 <div class="index">
-	<div class="pure-g gallery">
+	<div class="gallery">
 		<?php foreach ($data['gallery'] as $val) : ?>
-			<div class="pure-u-1 image" id="image<?php echo $val['id']; ?>">
-				<div class="pure-u-1 name">
+			<div class="image" id="image<?php echo $val['id']; ?>">
+				<div class="name">
 					<?php
 					$user = $data['users']->getById($val['user_id']);
 					$user = $user[0];

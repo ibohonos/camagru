@@ -20,47 +20,16 @@ a {
 
 a:hover, a:active {
 	color: #bc1888;
+	text-decoration: none;
 }
 
 .clearfix {
 	clear: both;
 }
 
-.container {
-	width: 100%;
-	padding-right: 15px;
-	padding-left: 15px;
-	margin-right: auto;
-	margin-left: auto;
-}
-
 .avatar {
 	width: 48px;
 	border-radius: 50%;
-}
-
-@media (min-width: 576px) {
-	.container {
-		max-width: 540px;
-	}
-}
-
-@media (min-width: 768px) {
-	.container {
-		max-width: 720px;
-	}
-}
-
-@media (min-width: 992px) {
-	.container {
-		max-width: 960px;
-	}
-}
-
-@media (min-width: 1200px) {
-	.container {
-		max-width: 1140px;
-	}
 }
 
 .title {
@@ -133,7 +102,6 @@ a:hover, a:active {
 
 .page_header .pure-menu-link {
 	color: #fff;
-	height: 64px;
 	line-height: 64px;
 }
 
@@ -187,7 +155,6 @@ canvas#canvas {
 }
 
 .gallery {
-	width: 750px;
 	margin: 0 auto;
 }
 
@@ -225,6 +192,7 @@ canvas#canvas {
 
 .comments .comment p {
 	margin-top: 0;
+	word-wrap: break-word;
 }
 
 .content_likes {
@@ -419,6 +387,79 @@ canvas#canvas {
 .disabled {
 	opacity: 0.5;
 }
+
+.pure-menu-heading {
+	padding: .25em 1em;
+}
+
+.custom-menu-3 {
+	text-align: right;
+}
+
+.custom-toggle {
+	width: 34px;
+	height: 34px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: none;
+}
+
+.custom-toggle .bar {
+	background-color: #777;
+	display: block;
+	width: 20px;
+	height: 2px;
+	border-radius: 100px;
+	position: absolute;
+	top: 18px;
+	right: 7px;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+.custom-toggle .bar:first-child {
+	-webkit-transform: translateY(-6px);
+	-moz-transform: translateY(-6px);
+	-ms-transform: translateY(-6px);
+	transform: translateY(-6px);
+}
+
+.custom-toggle.x .bar {
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.custom-toggle.x .bar:first-child {
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+@media (max-width: 47.999em) {
+	.custom-menu-3 {
+		text-align: left;
+	}
+
+	.custom-toggle {
+		display: block;
+	}
+
+	.custom-can-transform {
+		display: none;
+	}
+
+	.open .custom-can-transform {
+		display: block;
+	}
+}
+
+/*@media ()*/
 
 footer {
 	margin-top: 25px;

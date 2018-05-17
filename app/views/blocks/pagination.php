@@ -1,4 +1,4 @@
-<div class="pagination">
+<div class="pagination align-items-center d-block">
 	<?php foreach ($data['pages']->buttons as $button) : ?>
 		<?php if ($button->isActive) : ?>
 			<?php if (isset($_GET['id'])) : ?>
