@@ -22,27 +22,35 @@ class RegisterController extends Controller
 			return;
 		endif;
 		if (!empty($req['first_name']) && !empty($req['last_name']) && !empty($req['password']) && !empty($req['email'])) :
-			if (count($req['password']) >= 6) :
-				if ($req['password'] == $req['conf_password']) :
-					$user = new UsersModel;
-					if (!$user->getByEmail(trim(htmlspecialchars($req['email'])))) :
-						$user->first_name = trim(htmlspecialchars($req['first_name']));
-						$user->last_name = trim(htmlspecialchars($req['last_name']));
-						$user->email = trim(htmlspecialchars($req['email']));
-						$user->pass = hash("whirlpool", trim(htmlspecialchars($req['password'])));
-						$user->token = hash("whirlpool", time());
-						$user->save($user);
+			if (strlen($req['password']) >= 6) :
+				if (!ctype_digit($req['password'])) :
+					if (!ctype_alpha($req['password'])) :
+						if ($req['password'] == $req['conf_password']) :
+							$user = new UsersModel;
+							if (!$user->getByEmail(trim(htmlspecialchars($req['email'])))) :
+								$user->first_name = trim(htmlspecialchars($req['first_name']));
+								$user->last_name = trim(htmlspecialchars($req['last_name']));
+								$user->email = trim(htmlspecialchars($req['email']));
+								$user->pass = hash("whirlpool", trim(htmlspecialchars($req['password'])));
+								$user->token = hash("whirlpool", time());
+								$user->save($user);
 
-						$mail_message = "Thank's for registration.\n\nPlease activate Your account for <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/profile/active/token=" . $user->token . "&email=" . $user->email . "'>this link</a>.\n";
+								$mail_message = "Thank's for registration.\n\nPlease activate Your account for <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/profile/active/token=" . $user->token . "&email=" . $user->email . "'>this link</a>.\n";
 
-						Mail::send($user->email, "Registration", $mail_message);
+								Mail::send($user->email, "Registration", $mail_message);
 
-						$msg = "Success";
+								$msg = "Success";
+							else :
+								$msg = "E-mail is already busy";
+							endif;
+						else :
+							$msg = "Password not matches";
+						endif;
 					else :
-						$msg = "E-mail is already busy";
+						$msg = "Password consists only of charsets. Please enter digits.";
 					endif;
 				else :
-					$msg = "Password not matches";
+					$msg = "Password consists only of digits. Please enter charsets.";
 				endif;
 			else :
 				$msg = "Password too short. Minimum 6 charset.";
