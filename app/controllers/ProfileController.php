@@ -143,8 +143,8 @@ class ProfileController extends Controller
 
 		$res = $user->getByEmail($email[1]);
 		if ($token[1] === $res[0]['token']) :
-				$user->activate($email[1]);
-				$this->redirect("/login/");
+			$user->activate($email[1]);
+			$this->redirect("/login/");
 		else :
 			$this->redirect("/");
 		endif;

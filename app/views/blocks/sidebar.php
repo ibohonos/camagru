@@ -42,7 +42,7 @@
 					</div>
 				<?php endforeach; ?>
 			<?php else : ?>
-				<div class="pure-u-1">
+				<div class="pure-u-1" style="text-align: center;">
 					<p>No images.</p>
 				</div>
 			<?php endif; ?>

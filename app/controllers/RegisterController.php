@@ -30,7 +30,7 @@ class RegisterController extends Controller
 						$user->last_name = trim(htmlspecialchars($req['last_name']));
 						$user->email = trim(htmlspecialchars($req['email']));
 						$user->pass = hash("whirlpool", trim(htmlspecialchars($req['password'])));
-						$user->token = hash("whirlpool", $user->email);
+						$user->token = hash("whirlpool", time());
 						$user->save($user);
 
 						$mail_message = "Thank's for registration.\n\nPlease activate Your account for <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/profile/active/token=" . $user->token . "&email=" . $user->email . "'>this link</a>.\n";

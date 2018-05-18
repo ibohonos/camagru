@@ -23,6 +23,14 @@ a:hover, a:active {
 	text-decoration: none;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	margin-top: .5rem;
+}
+
+p {
+	margin-top: 1rem;
+}
+
 .clearfix {
 	clear: both;
 }
@@ -159,7 +167,7 @@ canvas#canvas {
 }
 
 .gallery .name {
-	padding: 5px 15px 0;
+	padding: 5px 15px;
 }
 
 .gallery .image {
@@ -236,7 +244,6 @@ canvas#canvas {
 
 .user_link span {
 	line-height: 32px;
-	display: table-cell;
 	vertical-align: middle;
 }
 
@@ -397,8 +404,8 @@ canvas#canvas {
 }
 
 .custom-toggle {
-	width: 34px;
-	height: 34px;
+	width: 75px;
+	height: 75px;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -406,14 +413,14 @@ canvas#canvas {
 }
 
 .custom-toggle .bar {
-	background-color: #777;
+	background-color: #fff;
 	display: block;
-	width: 20px;
+	width: 58px;
 	height: 2px;
 	border-radius: 100px;
 	position: absolute;
-	top: 18px;
-	right: 7px;
+	top: 40px;
+	right: 10px;
 	-webkit-transition: all 0.5s;
 	-moz-transition: all 0.5s;
 	-ms-transition: all 0.5s;
@@ -456,6 +463,11 @@ canvas#canvas {
 
 	.open .custom-can-transform {
 		display: block;
+	}
+
+	.page_header .pure-menu-link {
+		text-align: center;
+		line-height: 36px;
 	}
 }
 

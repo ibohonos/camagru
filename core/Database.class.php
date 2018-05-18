@@ -3,6 +3,24 @@
 
 class Database
 {
+	public function checkConnect($sql)
+	{
+		include CONFIG_PATH . "database.php";
+
+		try {
+			$pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute();
+			$data = $stmt->fetchAll();
+
+			return $data;
+		} catch (PDOException $e) {
+			return "Error connect";
+		}
+	}
+
 	public function select($sql)
 	{
 		include CONFIG_PATH . "database.php";

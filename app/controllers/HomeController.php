@@ -11,6 +11,9 @@ class HomeController extends Controller
 		$page = isset($_GET['page']) ? $_GET['page'] : 1;
 		$start = $page * $numbers - $numbers;
 
+		$sql = "SELECT * FROM albums";
+		if ($home->pdo->checkConnect($sql) === "Error connect")
+			$this->redirect("/config/setup.php");
 		$data['gallery'] = $home->get_limit_data($start, $numbers);
 		$data['comments'] = new CommentsModel;
 		$data['users'] = $user;
