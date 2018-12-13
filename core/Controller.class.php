@@ -57,7 +57,7 @@ class Controller
 				}
 			endif;
 		}
-		$img_url = "/public/uploads/" . $path . "/" . $img_name;
+		$img_url = "/uploads/" . $path . "/" . $img_name;
 
 		return $img_url;
 	}

@@ -3,7 +3,7 @@
 		<div class="row" id="menu">
 			<div class="col-12 col-lg-4 text-md-center text-lg-left">
 				<a href="/" class="pure-menu-heading custom-brand">
-					<img src="/public/img/logo.png" height="64">
+					<img src="/img/logo.png" height="64">
 				</a>
 				<a href="#" class="custom-toggle" id="toggle">
 					<s class="bar"></s>

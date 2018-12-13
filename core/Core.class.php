@@ -14,7 +14,7 @@ class Core
 		session_start();
 
 		define("DS", DIRECTORY_SEPARATOR);
-		define("ROOT", getcwd() . DS);
+		define("ROOT", getcwd() . DS . '..' . DS);
 		define("APP_PATH", ROOT . 'app' . DS);
 		define("CORE_PATH", ROOT . "core" . DS);
 		define("PUBLIC_PATH", ROOT . "public" . DS);

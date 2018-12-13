@@ -3,16 +3,16 @@
 <div class="error"></div>
 <div id="photo_wrap">
 	<div id="filter_section">
-		<img class="filter" src="/public/img/filters/1.png">
-		<img class="filter" src="/public/img/filters/2.png">
-		<img class="filter" src="/public/img/filters/3.png">
-		<img class="filter" src="/public/img/filters/4.png">
-		<img class="filter" src="/public/img/filters/5.png">
-		<img class="filter" src="/public/img/filters/6.png">
+		<img class="filter" src="/img/filters/1.png">
+		<img class="filter" src="/img/filters/2.png">
+		<img class="filter" src="/img/filters/3.png">
+		<img class="filter" src="/img/filters/4.png">
+		<img class="filter" src="/img/filters/5.png">
+		<img class="filter" src="/img/filters/6.png">
 	</div>
 	<div id="photo_section">
 		<div id="camera_wrap">
-			<img id="overlay" width="640" height="480" class="none" src="/public/img/filters/1.png">
+			<img id="overlay" width="640" height="480" class="none" src="/img/filters/1.png">
 			<img id="downloaded_img" width="640" height="480" class="none" src="">
 			<div id="target" class="none">
 				<p>You can drag an image file here</p>
@@ -35,4 +35,4 @@
 	</div>
 </div>
 
-<script src="/public/js/cams.js"></script>
+<script src="/js/cams.js"></script>

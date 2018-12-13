@@ -2,7 +2,7 @@
 
 class Route
 {
-	public function start()
+	public static function start()
 	{
 		$controller_name = 'Home';
 		$action_name = 'index';
@@ -40,7 +40,6 @@ class Route
 		// добавляем префиксы
 		$model_name = $controller_name . "Model";
 		$controller_name = $controller_name . "Controller";
-//		$action_name = $action_name . "Action";
 
 		if ($controller_name === "404Controller") :
 			$controller_name = "HomeController";
@@ -65,11 +64,11 @@ class Route
 
 		$controller = new $controller_name;
 		$action = $action_name;
-		
+
 		if(method_exists($controller, $action)) :
-			if ($post) :
+			if (isset($post) && $post) :
 				$controller->$action($post);
-			elseif ($get_req) :
+			elseif (isset($get_req) && $get_req) :
 				$controller->$action($get_req);
 			else :
 				$controller->$action();

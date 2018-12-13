@@ -13,7 +13,7 @@ class HomeController extends Controller
 
 		$sql = "SELECT * FROM albums";
 		if ($home->pdo->checkConnect($sql) === "Error connect")
-			$this->redirect("/config/setup.php");
+			$home->setup_database();
 		$data['gallery'] = $home->get_limit_data($start, $numbers);
 		$data['comments'] = new CommentsModel;
 		$data['users'] = $user;

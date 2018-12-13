@@ -211,11 +211,11 @@ class ProfileController extends Controller
 		endif;
 		$profile = new ProfileModel;
 
-		$patch = "public/uploads/gallery/" . time() . "-" . $auth['first_name'] . "-" . $auth['last_name'] . ".png";
+		$patch = "uploads/gallery/" . time() . "-" . $auth['first_name'] . "-" . $auth['last_name'] . ".png";
 		$photo = str_replace('data:image/png;base64,', '', $req['pic']);
 		$photo = str_replace(' ', '+', $photo);
 		$data = base64_decode($photo);
-		file_put_contents(ROOT . str_replace("/", DS, $patch), $data);
+		file_put_contents(PUBLIC_PATH . str_replace("/", DS, $patch), $data);
 		$profile->user_id = $req['id_user'];
 		$profile->img = "/" . $patch;
 		$profile->save($profile);
